@@ -165,6 +165,9 @@ Why this exists: Without a typed maneuver in MapKit, mapping across all locales 
 
 If you need guaranteed correctness across many languages, consider using a routing SDK that exposes typed maneuvers (e.g., Mapbox or HERE) and feed its steps into `NavigationOverlayViewModel`.
 
+## Screenshot
+![[Simulator Screenshot - iPhone 17 Pro Max - 2025-10-11 at 16.12.14.png|284x617]]
+
 ## License
 
 NavigationOverlayKit is provided without a specific license. Add your preferred license here.
