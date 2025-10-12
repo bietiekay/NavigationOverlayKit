@@ -1,13 +1,13 @@
 //
-//  NavigationOverlayKitSampleUITestsLaunchTests.swift
-//  NavigationOverlayKitSampleUITests
+//  NavigationRouteInstructionExtractorUITestsLaunchTests.swift
+//  NavigationRouteInstructionExtractorUITests
 //
 //  Created by Daniel Kirstenpfad on 12.10.25.
 //
 
 import XCTest
 
-final class NavigationOverlayKitSampleUITestsLaunchTests: XCTestCase {
+final class NavigationRouteInstructionExtractorUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

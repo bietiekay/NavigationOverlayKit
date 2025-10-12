@@ -70,21 +70,21 @@ final class ViewModel: ObservableObject {
         statuses = Dictionary(uniqueKeysWithValues: languages.map { ($0, .pending) })
         logs.removeAll(keepingCapacity: false)
 
-        appendLog("Starte Abruf für \(languages.count) Sprachen…")
+        appendLog("Starting fetch for \(languages.count) languages…")
 
         let previousLanguages = Locale.preferredLanguages
         do {
             try await service.prepareGeocodedItems(preferredLocale: Locale(identifier: previousLanguages.first ?? "en"))
         } catch {
-            appendLog("Geocoding-Warnung: \(error.localizedDescription)")
+            appendLog("Geocoding warning: \(error.localizedDescription)")
         }
 
         for language in languages {
             statuses[language] = .running
-            appendLog("Sprache \(language): Locale wird umgeschaltet…")
+            appendLog("Language \(language): Switching locale…")
             LocaleSwitcher.setAppleLanguages([language])
             await LocaleSwitcher.waitForPropagation()
-            appendLog("Sprache \(language): Directions starten…")
+            appendLog("Language \(language): Starting directions…")
 
             var attempt = 0
             var lastError: Error?
@@ -94,14 +94,14 @@ final class ViewModel: ObservableObject {
                     let result = try await service.fetchRoute(for: language)
                     results[language] = result
                     statuses[language] = result.languageSuspect ? .warn : .ok
-                    appendLog("Sprache \(language): \(result.steps.count) Schritte (suspekt: \(result.languageSuspect ? "ja" : "nein"))")
+                    appendLog("Language \(language): \(result.steps.count) steps (suspicious: \(result.languageSuspect ? "yes" : "no"))")
                     lastError = nil
                     break
                 } catch {
                     lastError = error
-                    appendLog("Sprache \(language) Versuch \(attempt) fehlgeschlagen: \(error.localizedDescription)")
+                    appendLog("Language \(language) attempt \(attempt) failed: \(error.localizedDescription)")
                     if attempt < 2 {
-                        appendLog("Sprache \(language): erneuter Versuch in 1s…")
+                        appendLog("Language \(language): retrying in 1s…")
                         try? await Task.sleep(nanoseconds: 1_000_000_000)
                     }
                 }
@@ -114,7 +114,7 @@ final class ViewModel: ObservableObject {
 
         LocaleSwitcher.setAppleLanguages(previousLanguages)
         await LocaleSwitcher.waitForPropagation()
-        appendLog("AppleLanguages zurückgesetzt (\(previousLanguages.first ?? "Systemstandard"))")
+        appendLog("AppleLanguages reset (\(previousLanguages.first ?? "System default"))")
 
         isRunning = false
     }
@@ -130,9 +130,9 @@ final class ViewModel: ObservableObject {
             let url = FileManager.default.temporaryDirectory.appendingPathComponent(fileName, conformingTo: .json)
             try data.write(to: url, options: .atomic)
             exportFileURL = url
-            appendLog("JSON exportiert: \(fileName)")
+            appendLog("JSON exported: \(fileName)")
         } catch {
-            appendLog("Export fehlgeschlagen: \(error.localizedDescription)")
+            appendLog("Export failed: \(error.localizedDescription)")
         }
     }
 
@@ -168,7 +168,7 @@ struct ContentView: View {
             .toolbar {
                 if let url = viewModel.exportFileURL {
                     ShareLink(item: url, preview: SharePreview("RouteInstructions.json", icon: Image(systemName: "map"))) {
-                        Label("Teilen", systemImage: "square.and.arrow.up")
+                        Label("Share", systemImage: "square.and.arrow.up")
                     }
                 }
             }
@@ -178,7 +178,7 @@ struct ContentView: View {
     private var controlSection: some View {
         HStack {
             Button(action: { Task { await viewModel.runAll() } }) {
-                Label("Alle Sprachen abrufen", systemImage: "arrow.clockwise.circle")
+                Label("Fetch All Languages", systemImage: "arrow.clockwise.circle")
             }
             .buttonStyle(.borderedProminent)
             .disabled(viewModel.isRunning)
@@ -186,7 +186,7 @@ struct ContentView: View {
             Spacer()
 
             Button(action: viewModel.exportJSON) {
-                Label("JSON exportieren", systemImage: "square.and.arrow.down")
+                Label("Export JSON", systemImage: "square.and.arrow.down")
             }
             .disabled(viewModel.results.isEmpty)
         }
@@ -196,7 +196,7 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 4) {
             ProgressView(value: viewModel.progressValue, total: 1.0)
                 .progressViewStyle(.linear)
-            Text("Fortschritt: \(viewModel.completedCount) / \(viewModel.languages.count)")
+            Text("Progress: \(viewModel.completedCount) / \(viewModel.languages.count)")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -268,15 +268,15 @@ private extension ViewModel.Status {
     var message: String {
         switch self {
         case .pending:
-            return "Warte…"
+            return "Waiting…"
         case .running:
-            return "läuft"
+            return "running"
         case .ok:
-            return "fertig"
+            return "done"
         case .warn:
-            return "fertig (Sprache prüfen)"
+            return "done (check language)"
         case let .fail(message):
-            return "Fehler: \(message)"
+            return "Error: \(message)"
         }
     }
 

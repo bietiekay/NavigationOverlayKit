@@ -1,13 +1,13 @@
 //
-//  NavigationOverlayKitSampleUITests.swift
-//  NavigationOverlayKitSampleUITests
+//  NavigationRouteInstructionExtractorUITests.swift
+//  NavigationRouteInstructionExtractorUITests
 //
 //  Created by Daniel Kirstenpfad on 12.10.25.
 //
 
 import XCTest
 
-final class NavigationOverlayKitSampleUITests: XCTestCase {
+final class NavigationRouteInstructionExtractorUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

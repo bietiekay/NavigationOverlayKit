@@ -10,21 +10,27 @@ enum DirectionsServiceError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .geocodingFailed(let details):
-            return "Geocoding fehlgeschlagen: " + details.joined(separator: ", ")
+            return "Geocoding failed: " + details.joined(separator: ", ")
         case .missingMapItems:
-            return "Quell- oder Zielpunkt konnte nicht vorbereitet werden."
+            return "Source or destination point could not be prepared."
         case .timeout(let seconds):
-            return "Timeout nach \(Int(seconds))s bei der Routenberechnung."
+            return "Timeout after \(Int(seconds))s during route calculation."
         case .noRoute:
-            return "Keine Route gefunden."
+            return "No route found."
         }
     }
 }
 
 final class DirectionsService {
+    // japan route
     private let sourceCoordinate = CLLocationCoordinate2D(latitude: 35.697190, longitude: 139.810837)
     private let destinationCoordinate = CLLocationCoordinate2D(latitude: 35.674747, longitude: 139.751626)
 
+    // germany route
+    //private let sourceCoordinate = CLLocationCoordinate2D(latitude: 48.191307, longitude: 11.652738)
+    //private let destinationCoordinate = CLLocationCoordinate2D(latitude: 48.129768, longitude: 11.572516)
+
+    
     private var sourceItem: MKMapItem?
     private var destinationItem: MKMapItem?
 
@@ -43,7 +49,7 @@ final class DirectionsService {
                 } else {
                     sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate))
                 }
-                warnings.append("Quelle: \(error.localizedDescription)")
+                warnings.append("Source: \(error.localizedDescription)")
             }
         }
 
@@ -57,7 +63,7 @@ final class DirectionsService {
                 } else {
                     destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate))
                 }
-                warnings.append("Ziel: \(error.localizedDescription)")
+                warnings.append("Destination: \(error.localizedDescription)")
             }
         }
 
@@ -127,7 +133,7 @@ final class DirectionsService {
                         let mkPlacemark = MKPlacemark(placemark: placemark)
                         continuation.resume(returning: MKMapItem(placemark: mkPlacemark))
                     } else {
-                        let fallbackError = NSError(domain: "DirectionsService", code: 404, userInfo: [NSLocalizedDescriptionKey: "Kein Placemark gefunden"])
+                        let fallbackError = NSError(domain: "DirectionsService", code: 404, userInfo: [NSLocalizedDescriptionKey: "No placemark found"])
                         continuation.resume(throwing: fallbackError)
                     }
                 }
