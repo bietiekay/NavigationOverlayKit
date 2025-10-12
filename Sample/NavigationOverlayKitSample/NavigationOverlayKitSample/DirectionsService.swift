@@ -35,20 +35,28 @@ final class DirectionsService {
 
         if sourceItem == nil {
             do {
-                let placemark = try await reverseGeocode(coordinate: sourceCoordinate, locale: preferredLocale)
-                sourceItem = MKMapItem(placemark: placemark)
+                sourceItem = try await makeMapItem(coordinate: sourceCoordinate, locale: preferredLocale)
             } catch {
-                sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate))
+                if #available(iOS 26.0, *) {
+                    let location = CLLocation(latitude: sourceCoordinate.latitude, longitude: sourceCoordinate.longitude)
+                    sourceItem = MKMapItem(location: location, address: nil)
+                } else {
+                    sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate))
+                }
                 warnings.append("Quelle: \(error.localizedDescription)")
             }
         }
 
         if destinationItem == nil {
             do {
-                let placemark = try await reverseGeocode(coordinate: destinationCoordinate, locale: preferredLocale)
-                destinationItem = MKMapItem(placemark: placemark)
+                destinationItem = try await makeMapItem(coordinate: destinationCoordinate, locale: preferredLocale)
             } catch {
-                destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate))
+                if #available(iOS 26.0, *) {
+                    let location = CLLocation(latitude: destinationCoordinate.latitude, longitude: destinationCoordinate.longitude)
+                    destinationItem = MKMapItem(location: location, address: nil)
+                } else {
+                    destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate))
+                }
                 warnings.append("Ziel: \(error.localizedDescription)")
             }
         }
@@ -103,18 +111,25 @@ final class DirectionsService {
         return RouteLanguageResult(languageCode: languageCode, languageSuspect: languageSuspect, steps: steps)
     }
 
-    private func reverseGeocode(coordinate: CLLocationCoordinate2D, locale: Locale?) async throws -> MKPlacemark {
-        try await withCheckedThrowingContinuation { continuation in
-            let geocoder = CLGeocoder()
+    // Unified helper that uses modern APIs on iOS 26+ and legacy on older iOS
+    private func makeMapItem(coordinate: CLLocationCoordinate2D, locale: Locale?) async throws -> MKMapItem {
+        if #available(iOS 26.0, *) {
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else if let placemark = placemarks?.first {
-                    continuation.resume(returning: MKPlacemark(placemark: placemark))
-                } else {
-                    let fallbackError = NSError(domain: "DirectionsService", code: 404, userInfo: [NSLocalizedDescriptionKey: "Kein Placemark gefunden"])
-                    continuation.resume(throwing: fallbackError)
+            return MKMapItem(location: location, address: nil)
+        } else {
+            return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<MKMapItem, Error>) in
+                let geocoder = CLGeocoder()
+                let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
+                    if let error {
+                        continuation.resume(throwing: error)
+                    } else if let placemark = placemarks?.first {
+                        let mkPlacemark = MKPlacemark(placemark: placemark)
+                        continuation.resume(returning: MKMapItem(placemark: mkPlacemark))
+                    } else {
+                        let fallbackError = NSError(domain: "DirectionsService", code: 404, userInfo: [NSLocalizedDescriptionKey: "Kein Placemark gefunden"])
+                        continuation.resume(throwing: fallbackError)
+                    }
                 }
             }
         }
