@@ -178,7 +178,6 @@ struct LocalizedManeuverTokens {
         // Chinese (Simplified/Traditional)
         "隧道",
         // Spanish/Italian/French variants
-        "túnel", "tunel",
         // Japanese (walk through the tunnel)
         "トンネル"
     ]
@@ -206,7 +205,7 @@ struct LocalizedManeuverTokens {
         // Czech
         "most",
         // Croatian
-        "most",
+        
         // Russian
         "мост",
         // Turkish
@@ -280,7 +279,7 @@ struct LocalizedManeuverTokens {
         // Hindi
         "सीढ़ियों",
         // Norwegian
-        "trapp", "trappen",
+        "trapp",
         // Dutch
         "trap", "trappen",
         // Croatian
@@ -387,9 +386,8 @@ struct LocalizedManeuverTokens {
         // Swedish
         "du är framme", "ni är framme", "ankomst",
         // Norwegian
-        "du er fremme", "ankomst",
+        "du er fremme",
         // Danish
-        "du er fremme", "ankomst",
         // Finnish
         "olet perillä", "saapuminen",
         // Japanese
@@ -465,7 +463,7 @@ struct LocalizedManeuverTokens {
         // Chinese (Simplified/Traditional)
         "目的地在你右侧", "目的地在你的右邊", "目的地",
         // Japanese
-        "目的地"
+        
     ]
     
     // MARK: - Modifier Detection
@@ -487,7 +485,7 @@ struct LocalizedManeuverTokens {
         // Portuguese
         "leve", "levemente", "ligeiramente", "meia",
         // Dutch
-        "licht", "half",
+        "licht",
         // Swedish/Norwegian/Danish
         "svagt", "svag", "lett", "halv",
         // Japanese
@@ -565,13 +563,13 @@ struct LocalizedManeuverTokens {
         // Chinese (Simplified/Traditional)
         "急转", "急轉",
         // Russian
-        "резко", "круто",
+        "резко",
         // Polish
         "ostro",
         // Czech
         "prudce", "ostře",
         // Slovak
-        "prudko", "ostro",
+        "prudko",
         // Hungarian
         "élesen",
         // Romanian
@@ -607,11 +605,11 @@ struct LocalizedManeuverTokens {
         // Portuguese
         "esquerda", "à esquerda", "a esquerda",
         // Dutch
-        "linksaf", "links af", "links",
+        "linksaf", "links af",
         // Nordic
-        "venstre", "vänster", "venstre",
+        "venstre", "vänster",
         // Japanese
-        "左", "ひだり",
+        "左に", "左へ", "左折", "左方向", "ひだり",
         // Chinese (Simplified/Traditional)
         "左转", "左轉", "向左",
         // Russian
@@ -659,11 +657,11 @@ struct LocalizedManeuverTokens {
         // Hindi
         "बाएँ", "बाएं",
         // Norwegian
-        "venstre",
+        
         // Czech
-        "vlevo",
+        
         // Croatian
-        "lijevo"
+        
     ]
     
     /// Direction tokens for rightward maneuvers.
@@ -683,11 +681,11 @@ struct LocalizedManeuverTokens {
         // Portuguese
         "direita", "à direita", "a direita",
         // Dutch
-        "rechtsaf", "rechts af", "rechts",
+        "rechtsaf", "rechts af",
         // Nordic
         "højre", "höger", "høyre", "hoyre",
         // Japanese
-        "右", "みぎ",
+        "右に", "右へ", "右折", "右方向", "みぎ",
         // Chinese (Simplified/Traditional)
         "右转", "右轉", "向右",
         // Russian
@@ -709,7 +707,7 @@ struct LocalizedManeuverTokens {
         // Finnish
         "oikealle",
         // Ukrainian
-        "направо", "праворуч",
+        "праворуч",
         // Bulgarian
         "надясно",
         // Slovenian
@@ -735,10 +733,10 @@ struct LocalizedManeuverTokens {
         // Hindi
         "दाएँ", "दाएं",
         // Norwegian
-        "høyre", "hoyre",
+        
         // Czech
-        "vpravo",
+        
         // Croatian
-        "desno"
+        
     ]
 }
