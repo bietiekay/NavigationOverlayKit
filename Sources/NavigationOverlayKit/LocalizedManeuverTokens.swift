@@ -40,6 +40,9 @@ struct LocalizedManeuverTokens {
     
     // MARK: - U-turn Detection
     
+    /// Substrings that identify U-turn maneuvers across supported locales.
+    /// - Usage: Lowercase `MKRouteStep.instructions` and check for `contains` of any token.
+    /// - Effect: If matched, classify the step as a U-turn regardless of left/right modifiers.
     static let uTurnTokens = [
         // English
         "u-turn", "uturn", "make a u", "make a u turn",
@@ -91,6 +94,9 @@ struct LocalizedManeuverTokens {
     
     // MARK: - Arrival Detection
     
+    /// Substrings that indicate arrival at or near the destination.
+    /// - Usage: Match to mark terminal steps and suppress maneuver arrows in the UI.
+    /// - Effect: Signals end-of-route messaging rather than a turn/continue instruction.
     static let arriveTokens = [
         // English
         "arrive", "arrival", "you have arrived",
@@ -142,6 +148,9 @@ struct LocalizedManeuverTokens {
     
     // MARK: - Modifier Detection
     
+    /// Modifier tokens that soften the direction (slight/soft/bear).
+    /// - Usage: Combine with `leftTokens`/`rightTokens` to infer "slight left" or "slight right".
+    /// - Note: All tokens are lowercase; callers should lowercase instructions before matching.
     static let slightTokens = [
         // English
         "slight", "slightly", "bear right", "bear left", "half",
@@ -187,6 +196,9 @@ struct LocalizedManeuverTokens {
         "леко"
     ]
     
+    /// Modifier tokens that strengthen the direction (sharp/hard).
+    /// - Usage: Combine with direction tokens to infer "sharp left" or "sharp right".
+    /// - Note: Helps distinguish tight turns from normal turns when text explicitly says so.
     static let sharpTokens = [
         // English
         "sharp",
@@ -232,6 +244,9 @@ struct LocalizedManeuverTokens {
     
     // MARK: - Direction Detection
     
+    /// Direction tokens for leftward maneuvers.
+    /// - Usage: Paired with modifier tokens (e.g., `slightTokens`, `sharpTokens`) to build the final maneuver: slight/normal/sharp left.
+    /// - Note: Some locales use compounds (e.g., Dutch "linksaf"); prefer `contains` over whole-word matches.
     static let leftTokens = [
         // English
         "left",
@@ -281,6 +296,9 @@ struct LocalizedManeuverTokens {
         "lijevo", "levo"
     ]
     
+    /// Direction tokens for rightward maneuvers.
+    /// - Usage: Paired with modifier tokens (e.g., `slightTokens`, `sharpTokens`) to build the final maneuver: slight/normal/sharp right.
+    /// - Note: Includes spacing and diacritic variants for better recall across locales.
     static let rightTokens = [
         // English
         "right",
