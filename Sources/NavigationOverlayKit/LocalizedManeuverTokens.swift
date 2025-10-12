@@ -92,6 +92,278 @@ struct LocalizedManeuverTokens {
         "обратен завой"
     ]
     
+    // MARK: - Crossing / Tunnel / Bridge / Vertical Movement
+    
+    /// Substrings indicating a crossing action (cross over/through an intersecting road/path).
+    /// Useful to render a dedicated crosswalk icon if desired; otherwise can be treated as straight.
+    static let crossTokens = [
+        // English
+        "cross ", "crossing",
+        // Arabic
+        "اعبر",
+        // Finnish
+        "ylitä",
+        // Catalan
+        "travessa",
+        // Hindi
+        "पार करें",
+        // Swedish/Danish/Norwegian
+        "gå över", "gå over",
+        // Dutch
+        "steek",
+        // Italian
+        "attraversa",
+        // Portuguese
+        "atravesse",
+        // Greek
+        "διασχίστε",
+        // Czech
+        "přejděte",
+        // Norwegian
+        "kryss",
+        // Croatian
+        "prijeđite",
+        // Russian
+        "пересеките",
+        // Polish
+        "przejdź",
+        // Indonesian/Malay
+        "seberangi",
+        // Vietnamese
+        "đi qua",
+        // Chinese (Simplified/Traditional)
+        "穿过", "穿過",
+        // Turkish
+        "karşıya geç",
+        // Korean
+        "건너",
+        // Japanese
+        "渡り", "渡って",
+        // Spanish/Portuguese
+        "cruce", "cruza", "cruzar", "cruce el",
+        // French
+        "traversez",
+        // German
+        "überqueren", "überquere", "ueberqueren"
+    ]
+    
+    /// Substrings indicating a tunnel traversal.
+    static let tunnelTokens = [
+        // English/German
+        "tunnel",
+        // Arabic
+        "النفق",
+        // Korean
+        "터널",
+        // Turkish
+        "tünel",
+        // Thai
+        "อุโมงค์",
+        // Catalan/Spanish
+        "túnel",
+        // Hindi
+        "सुरंग",
+        // Croatian
+        "tunel",
+        // Czech
+        "tunelu",
+        // Danish
+        "tunnellen",
+        // Greek
+        "σήραγγα",
+        // Hebrew
+        "מנהרה",
+        // Russian
+        "тоннель", "тоннел",
+        // Chinese (Simplified/Traditional)
+        "隧道",
+        // Spanish/Italian/French variants
+        "túnel", "tunel",
+        // Japanese (walk through the tunnel)
+        "トンネル"
+    ]
+    
+    /// Substrings indicating a bridge traversal.
+    static let bridgeTokens = [
+        // English/French/Catalan variants
+        "bridge", "pont",
+        // Arabic
+        "الجسر",
+        // Dutch
+        "brug",
+        // Danish/Norwegian/Swedish
+        "bro", "broen",
+        // Finnish
+        "silta",
+        // Greek
+        "γέφυρα",
+        // Hebrew
+        "גשר",
+        // Italian/Portuguese
+        "ponte",
+        // Hindi
+        "ब्रिज",
+        // Czech
+        "most",
+        // Croatian
+        "most",
+        // Russian
+        "мост",
+        // Turkish
+        "köprü",
+        // Korean
+        "다리",
+        // Japanese
+        "橋",
+        // Spanish/Portuguese
+        "puente",
+        // German
+        "brücke", "bruecke",
+        // Chinese (Simplified/Traditional)
+        "天桥", "天橋"
+    ]
+    
+    /// Substrings indicating use of an escalator.
+    static let escalatorTokens = [
+        // English
+        "escalator",
+        // Arabic
+        "السلم المتحرك",
+        // Indonesian
+        "eskalator",
+        // Turkish
+        "yürüyen merdiven",
+        // Spanish/Portuguese
+        "escalera mecánica", "escada rolante",
+        // Catalan
+        "escales mecàniques",
+        // Czech
+        "eskalátorem",
+        // Hindi
+        "एस्केलेटर",
+        // Norwegian
+        "rulletrapp", "rulletrappen",
+        // Dutch
+        "roltrap",
+        // German
+        "rolltreppe",
+        // Italian
+        "scale mobili",
+        // Greek
+        "κυλιόμενες σκάλες",
+        // Japanese
+        "エスカレータ",
+        // Finnish
+        "liukuportaat", "liukuportailla",
+        // Swedish/Danish
+        "rulltrappa", "rulletrappe",
+        // Chinese (Simplified/Traditional)
+        "自动扶梯", "自動扶梯"
+    ]
+    
+    /// Substrings indicating use of stairs.
+    static let stairsTokens = [
+        // English
+        "stairs",
+        // Arabic
+        "الدرج",
+        // Turkish
+        "merdiven",
+        // Spanish/Portuguese
+        "escaleras", "escadas",
+        // French
+        "escaliers",
+        // Catalan
+        "escales",
+        // Czech
+        "schodech", "schody",
+        // Hindi
+        "सीढ़ियों",
+        // Norwegian
+        "trapp", "trappen",
+        // Dutch
+        "trap", "trappen",
+        // Croatian
+        "stepenice",
+        // German
+        "treppe", "treppen",
+        // Italian
+        "scale",
+        // Greek
+        "σκάλες",
+        // Japanese
+        "階段",
+        // Finnish
+        "portaat", "portaita", "portailla",
+        // Swedish/Danish
+        "trappa",
+        // Chinese (Simplified/Traditional)
+        "楼梯", "樓梯"
+    ]
+
+    // MARK: - Route Start Detection
+    /// Substrings that typically appear in the very first instruction to move toward or begin the route.
+    static let startTokens = [
+        // English
+        "proceed to the route",
+        // Arabic
+        "استمر إلى المسار",
+        // Bulgarian (and similar Cyrillic sample)
+        "продължете към маршрута",
+        // Catalan
+        "ves a l’inici de la ruta", "ves a l'inici de la ruta",
+        // Czech / Slovak
+        "pokračujte po trase",
+        // Danish
+        "fortsæt til ruten",
+        // German
+        "weiter auf der route",
+        // Greek
+        "προχωρήστε στη διαδρομή",
+        // Spanish
+        "ve al inicio de la ruta", "regresa a la ruta",
+        // Russian
+        "следуйте по маршруту",
+        // Finnish
+        "jatka reitille",
+        // French
+        "rejoignez l’itinéraire", "rejoignez l'itinéraire",
+        // Hebrew
+        "המשך/י", "המשך",
+        // Hindi
+        "मार्ग की ओर बढ़ें",
+        // Croatian
+        "nastavite po ruti",
+        // Hungarian
+        "menjen az útvonal felé",
+        // Indonesian
+        "lanjut ke rute",
+        // Italian
+        "procedi verso l’itinerario", "procedi verso l'itinerario",
+        // Japanese
+        "経路へ進む",
+        // Korean
+        "경로를 따라 계속 이동",
+        // Lithuanian
+        "toliau eikite į maršruto kelią",
+        // Norwegian Bokmål
+        "fortsett til ruten",
+        // Dutch
+        "ga naar de route",
+        // Polish
+        "znajdź początek trasy",
+        // Portuguese
+        "siga para a rota",
+        // Romanian
+        "începeți ruta", "incepeti ruta",
+        // Slovenian
+        "nadaljujte do poti",
+        // Swedish
+        "fortsätt till rutten",
+        // Chinese (Simplified)
+        "前往这条路线"
+    ]
+    
     // MARK: - Arrival Detection
     
     /// Substrings that indicate arrival at or near the destination.
@@ -143,7 +415,57 @@ struct LocalizedManeuverTokens {
         // Ukrainian
         "ви прибули", "прибуття",
         // Bulgarian
-        "пристигнахте", "пристигане"
+        "пристигнахте", "пристигане",
+        // Arabic
+        "الوجهة", "الوجهة على يمينك",
+        // Hebrew
+        "היעד", "היעד בצד ימין",
+        // Korean
+        "목적지", "오른쪽에 목적지가",
+        // Thai
+        "ปลายทาง", "ปลายทางอยู่ทางขวามือของคุณ",
+        // Vietnamese
+        "điểm đến",
+        // Indonesian
+        "tujuan",
+        // Lithuanian
+        "kelionės tikslas",
+        // Catalan
+        "la destinació",
+        // Hindi
+        "मंज़िल",
+        // Norwegian (arrival phrasing)
+        "du er ankommet", "ankommet",
+        // Croatian (destination phrasing)
+        "odredište je",
+        // Russian (destination phrasing)
+        "пункт назначения",
+        // English (fallback locales)
+        "destination is",
+        // German
+        "das ziel befindet sich",
+        // Dutch
+        "bestemming is",
+        // Danish
+        "destinationen er",
+        // Greek
+        "ο προορισμός",
+        // Italian
+        "la destinazione",
+        // Polish
+        "cel znajduje się",
+        // Portuguese (pt/pt-br)
+        "o destino está",
+        // Czech
+        "cíl je",
+        // Norwegian Bokmål
+        "bestemmelsesstedet er",
+        // Bulgarian
+        "дестинацията е",
+        // Chinese (Simplified/Traditional)
+        "目的地在你右侧", "目的地在你的右邊", "目的地",
+        // Japanese
+        "目的地"
     ]
     
     // MARK: - Modifier Detection
@@ -193,7 +515,31 @@ struct LocalizedManeuverTokens {
         // Ukrainian
         "злегка", "незначно",
         // Bulgarian
-        "леко"
+        "леко",
+        // Arabic
+        "بسيط",
+        // Hebrew
+        "פניה קלה", "פנייה קלה",
+        // Korean
+        "완만히",
+        // Thai
+        "เบี่ยง",
+        // Indonesian
+        "sedikit",
+        // Lithuanian
+        "nežymiai",
+        // Catalan
+        "gir suau", "suau",
+        // Hindi
+        "थोड़ा", "थोडा",
+        // Dutch
+        "flauwe", "flauwe bocht",
+        // Portuguese
+        "suave", "curva suave",
+        // Danish
+        "blødt",
+        // Greek
+        "ανοιχτή"
     ]
     
     /// Modifier tokens that strengthen the direction (sharp/hard).
@@ -293,7 +639,31 @@ struct LocalizedManeuverTokens {
         // Slovenian
         "levo",
         // Croatian/Serbian/Bosnian
-        "lijevo", "levo"
+        "lijevo", "levo",
+        // Arabic
+        "يسار", "يسارًا",
+        // Hebrew
+        "שמאלה",
+        // Korean
+        "좌회전",
+        // Thai
+        "เลี้ยวซ้าย",
+        // Vietnamese
+        "rẽ trái",
+        // Indonesian
+        "kiri", "ambil kiri", "belok kiri",
+        // Lithuanian
+        "kairėn", "į kairę",
+        // Catalan
+        "a l’esquerra", "a l'esquerra", "l’esquerra", "l'esquerra",
+        // Hindi
+        "बाएँ", "बाएं",
+        // Norwegian
+        "venstre",
+        // Czech
+        "vlevo",
+        // Croatian
+        "lijevo"
     ]
     
     /// Direction tokens for rightward maneuvers.
@@ -345,6 +715,30 @@ struct LocalizedManeuverTokens {
         // Slovenian
         "desno",
         // Croatian/Serbian/Bosnian
+        "desno",
+        // Arabic
+        "يمين", "يمينًا",
+        // Hebrew
+        "ימינה",
+        // Korean
+        "우회전",
+        // Thai
+        "เลี้ยวขวา",
+        // Vietnamese
+        "rẽ phải",
+        // Indonesian
+        "kanan", "ambil kanan", "belok kanan",
+        // Lithuanian
+        "dešinėn", "į dešinę",
+        // Catalan
+        "a la dreta", "la dreta",
+        // Hindi
+        "दाएँ", "दाएं",
+        // Norwegian
+        "høyre", "hoyre",
+        // Czech
+        "vpravo",
+        // Croatian
         "desno"
     ]
 }

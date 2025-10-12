@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="2560"
+   height="1440"
+   viewBox="0 0 2560 1440"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="NavigationRouteSymbols.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     labelstyle="default"
+     inkscape:clip-to-page="false"
+     inkscape:antialias-rendering="true"
+     inkscape:zoom="1.3146674"
+     inkscape:cx="463.23504"
+     inkscape:cy="699.03612"
+     inkscape:window-width="1936"
+     inkscape:window-height="1321"
+     inkscape:window-x="232"
+     inkscape:window-y="553"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="0,381"
+       orientation="0,2560"
+       id="guide1"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="677.33333,381"
+       orientation="1440,0"
+       id="guide2"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="677.33333,0"
+       orientation="0,-2560"
+       id="guide3"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,0"
+       orientation="-1440,0"
+       id="guide4"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g32">
+      <rect
+         style="fill:none;stroke:none;stroke-width:5.91138;stroke-dasharray:none"
+         id="rect5-2-9"
+         width="394.08862"
+         height="394.08862"
+         x="98.296059"
+         y="400.80865"
+         inkscape:label="400x400 background"
+         inkscape:export-filename="path4-8-7.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <circle
+         style="fill:none;stroke:#000000;stroke-width:26.83464567;stroke-dasharray:none"
+         id="path4-8-7"
+         cx="245.04985"
+         cy="597.85297"
+         r="138.70598"
+         inkscape:export-filename="path4-8-7.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         id="path24"
+         style="baseline-shift:baseline;display:inline;overflow:visible;fill-rule:evenodd;stroke:#ffffff;stroke-width:5.61378;stroke-dasharray:none;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m 361.54913,524.81018 52.69536,55.2714 H 238.47941 v 17.77194 17.77192 h 175.76508 l -52.69536,55.26946 h 60.27208 l 69.64085,-73.04138 -69.64085,-73.04334 z" />
+      <circle
+         style="fill:#000000;stroke:#000000;stroke-width:0.151482;stroke-dasharray:none"
+         id="path4-2-7-5"
+         cx="245.04985"
+         cy="597.85297"
+         r="38.199001" />
+    </g>
+    <g
+       id="g33">
+      <rect
+         style="fill:none;stroke:none;stroke-width:5.91138;stroke-dasharray:none"
+         id="rect31"
+         width="394.08862"
+         height="394.08862"
+         x="521.97736"
+         y="400.80865"
+         inkscape:label="400x400 background"
+         inkscape:export-filename="circle31.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <circle
+         style="fill:none;stroke:#000000;stroke-width:26.8346;stroke-dasharray:none"
+         id="circle31"
+         cx="668.73114"
+         cy="597.85297"
+         r="138.70598"
+         inkscape:export-filename="circle31.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         id="path31"
+         style="baseline-shift:baseline;display:inline;overflow:visible;fill-rule:evenodd;stroke:#ffffff;stroke-width:5.61378;stroke-dasharray:none;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m 832.69875,524.81061 -52.69538,55.2714 136.06261,-9.8e-4 v 17.77194 17.77192 l -136.06261,9.8e-4 52.69538,55.26946 h -60.27211 l -69.64087,-73.04138 69.64087,-73.04334 z"
+         sodipodi:nodetypes="ccccccccccc" />
+      <circle
+         style="fill:#000000;stroke:#000000;stroke-width:0.151482;stroke-dasharray:none"
+         id="circle32"
+         cx="668.73114"
+         cy="597.85297"
+         r="38.199001" />
+    </g>
+  </g>
+</svg>

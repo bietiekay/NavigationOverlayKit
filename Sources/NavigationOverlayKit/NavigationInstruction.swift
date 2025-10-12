@@ -6,6 +6,7 @@ import MapKit
 /// The information can be derived from either a ``MKRouteStep`` or a ``MKRoute``.
 public struct NavigationInstruction: Equatable, Identifiable {
     public enum Symbol: String, CaseIterable, Codable {
+        case start
         case straight
         case slightRight
         case right
@@ -15,10 +16,17 @@ public struct NavigationInstruction: Equatable, Identifiable {
         case sharpLeft
         case uTurn
         case arrive
+        case cross
+        case tunnel
+        case bridge
+        case stairs
+        case escalator
 
         /// Maps the symbol to the appropriate SF Symbol that can be rendered in ``NavigationOverlayView``.
         public var systemImageName: String {
             switch self {
+            case .start:
+                return "arrowshape.forward"
             case .straight:
                 return "arrow.up"
             case .slightRight:
@@ -37,6 +45,16 @@ public struct NavigationInstruction: Equatable, Identifiable {
                 return "arrow.uturn.backward"
             case .arrive:
                 return "checkmark.circle"
+            case .cross:
+                return "figure.walk"
+            case .tunnel:
+                return "figure.walk"
+            case .bridge:
+                return "road.lanes"
+            case .stairs:
+                return "stairs"
+            case .escalator:
+                return "stairs"
             }
         }
     }
@@ -128,6 +146,7 @@ public extension NavigationInstruction {
 
     private static func defaultInstructionText(for symbol: NavigationInstruction.Symbol) -> String {
         switch symbol {
+        case .start: return NSLocalizedString("Start route", comment: "Default instruction text for starting the route")
         case .straight: return NSLocalizedString("Continue", comment: "Default instruction text for straight maneuver")
         case .slightRight: return NSLocalizedString("Slight right", comment: "Default instruction text for slight right turn")
         case .right: return NSLocalizedString("Turn right", comment: "Default instruction text for right turn")
@@ -137,6 +156,11 @@ public extension NavigationInstruction {
         case .sharpLeft: return NSLocalizedString("Sharp left", comment: "Default instruction text for sharp left turn")
         case .uTurn: return NSLocalizedString("Make a U-turn", comment: "Default instruction text for U-turn")
         case .arrive: return NSLocalizedString("Arrive", comment: "Default instruction text for arrival")
+        case .cross: return NSLocalizedString("Cross", comment: "Default instruction text for crossing")
+        case .tunnel: return NSLocalizedString("Through tunnel", comment: "Default instruction text for tunnel traversal")
+        case .bridge: return NSLocalizedString("Over bridge", comment: "Default instruction text for bridge traversal")
+        case .stairs: return NSLocalizedString("Use stairs", comment: "Default instruction text for stairs")
+        case .escalator: return NSLocalizedString("Use escalator", comment: "Default instruction text for escalator")
         }
     }
 
@@ -207,6 +231,16 @@ private extension NavigationInstruction {
 
         // Arrive
         if LocalizedManeuverTokens.arriveTokens.contains(where: { t.contains($0) }) { return .arrive }
+
+        // Start of route
+        if LocalizedManeuverTokens.startTokens.contains(where: { t.contains($0) }) { return .start }
+
+        // Feature-based: tunnel/bridge/escalator/stairs/cross (checked before turns)
+        if LocalizedManeuverTokens.tunnelTokens.contains(where: { t.contains($0) }) { return .tunnel }
+        if LocalizedManeuverTokens.bridgeTokens.contains(where: { t.contains($0) }) { return .bridge }
+        if LocalizedManeuverTokens.escalatorTokens.contains(where: { t.contains($0) }) { return .escalator }
+        if LocalizedManeuverTokens.stairsTokens.contains(where: { t.contains($0) }) { return .stairs }
+        if LocalizedManeuverTokens.crossTokens.contains(where: { t.contains($0) }) { return .cross }
 
         // Modifiers
         let slightTokens = LocalizedManeuverTokens.slightTokens
