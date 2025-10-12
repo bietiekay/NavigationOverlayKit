@@ -36,6 +36,19 @@ import Foundation
 /// 3. Keep tokens lowercase; accents are fine
 /// 4. Prefer short substrings that are unlikely to conflict
 /// 5. Test with real MapKit instructions from your locale
+/// 
+/// ## Data provenance and coverage
+/// 
+/// Many tokens were extracted from a multilingual MapKit walking route sample:
+/// `Sample/NavigationRouteInstructionExtractor/output/2025-10-12-RouteInstructions-1760278219-ToykoRoute.json`.
+/// We covered the following BCP-47 language codes (or their regional variants) listed in
+/// `defaultLanguages`: ar, bg, ca, cs, da, de, el, en, en-GB, en-US, es, es-MX, et, fi, fr, fr-CA,
+/// he, hi, hr, hu, id, it, ja, ko, lt, lv, nb, nl, pl, pt, pt-BR, ro, ru, sk, sl, sr, sv, th, tr,
+/// uk, vi, zh, zh-Hans, zh-Hant.
+/// 
+/// Detection priority in parsing (see `NavigationInstruction.symbolFromLocalizedInstruction`):
+/// 1) U-turn 2) Arrive 3) Start 4) Feature (tunnel/bridge/escalator/stairs/cross) 5) Modifiers
+/// (slight/sharp) + Direction (left/right). If none match, geometry fallback or straight default.
 struct LocalizedManeuverTokens {
     
     // MARK: - U-turn Detection

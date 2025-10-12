@@ -5,6 +5,12 @@ import MapKit
 ///
 /// The information can be derived from either a ``MKRouteStep`` or a ``MKRoute``.
 public struct NavigationInstruction: Equatable, Identifiable {
+    /// Symbol taxonomy:
+    /// - start: beginning of route (from startTokens)
+    /// - arrive: end of route (from arriveTokens or last step)
+    /// - cross/tunnel/bridge/stairs/escalator: non-turn features common in pedestrian guidance
+    /// - slight/sharp + left/right: turn maneuvers derived from text tokens
+    /// - straight: fallback or geometry-derived near-0 angle
     public enum Symbol: String, CaseIterable, Codable {
         case start
         case straight
