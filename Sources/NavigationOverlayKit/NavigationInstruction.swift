@@ -32,7 +32,7 @@ public struct NavigationInstruction: Equatable, Identifiable {
         public var systemImageName: String {
             switch self {
             case .start:
-                return "arrowshape.forward"
+                return "figure.walk"
             case .straight:
                 return "arrow.up"
             case .slightRight:

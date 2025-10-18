@@ -329,7 +329,7 @@ struct LocalizedManeuverTokens {
         // Danish
         "fortsæt til ruten",
         // German
-        "weiter auf der route",
+        "weiter auf der route", "starten",
         // Greek
         "προχωρήστε στη διαδρομή",
         // Spanish
