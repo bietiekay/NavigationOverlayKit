@@ -48,7 +48,7 @@ public struct NavigationInstruction: Equatable, Identifiable {
             case .sharpLeft:
                 return "arrow.left"
             case .uTurn:
-                return "arrow.uturn.backward"
+                return "arrow.uturn.down"
             case .arrive:
                 return "checkmark.circle"
             case .cross:
@@ -58,9 +58,9 @@ public struct NavigationInstruction: Equatable, Identifiable {
             case .bridge:
                 return "road.lanes"
             case .stairs:
-                return "stairs"
+                return "figure.stairs"
             case .escalator:
-                return "stairs"
+                return "figure.stairs"
             }
         }
     }
