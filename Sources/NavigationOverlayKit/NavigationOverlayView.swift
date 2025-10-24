@@ -16,14 +16,19 @@ public struct NavigationOverlayView: View {
     
     /// The alignment of the overlay within its parent view (defaults to top)
     private let alignment: Alignment
+    
+    /// Whether wheelchair accessibility mode is enabled
+    private let isWheelchairAccessible: Bool
 
     /// Initializes the navigation overlay view
     /// - Parameters:
     ///   - viewModel: The view model containing navigation state and instructions
     ///   - alignment: The alignment of the overlay (defaults to `.top`)
-    public init(viewModel: NavigationOverlayViewModel, alignment: Alignment = .top) {
+    ///   - isWheelchairAccessible: Whether wheelchair accessibility mode is enabled (defaults to `false`)
+    public init(viewModel: NavigationOverlayViewModel, alignment: Alignment = .top, isWheelchairAccessible: Bool = false) {
         self.viewModel = viewModel
         self.alignment = alignment
+        self.isWheelchairAccessible = isWheelchairAccessible
     }
 
     /// The main body of the navigation overlay view
@@ -55,7 +60,7 @@ public struct NavigationOverlayView: View {
     private func overlayContent(for instruction: NavigationInstruction) -> some View {
         HStack(spacing: 18) {
             // Direction icon with gradient background
-            Image(systemName: instruction.symbol.systemImageName)
+            Image(systemName: instruction.symbol.systemImageName(isWheelchairAccessible: isWheelchairAccessible))
                 .font(.system(size: 38, weight: .bold))
                 .foregroundStyle(.primary)
                 .frame(width: 64, height: 64)
@@ -194,7 +199,7 @@ public struct NavigationOverlayView: View {
 /// Preview provider for SwiftUI development and testing
 struct NavigationOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationOverlayView(viewModel: demoViewModel)
+        NavigationOverlayView(viewModel: demoViewModel, isWheelchairAccessible: false)
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color.black)

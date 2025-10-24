@@ -30,9 +30,15 @@ public struct NavigationInstruction: Equatable, Identifiable {
 
         /// Maps the symbol to the appropriate SF Symbol that can be rendered in ``NavigationOverlayView``.
         public var systemImageName: String {
+            systemImageName(isWheelchairAccessible: false)
+        }
+        
+        /// Maps the symbol to the appropriate SF Symbol that can be rendered in ``NavigationOverlayView``.
+        /// - Parameter isWheelchairAccessible: Whether wheelchair accessibility mode is enabled
+        public func systemImageName(isWheelchairAccessible: Bool) -> String {
             switch self {
             case .start:
-                return "figure.walk"
+                return isWheelchairAccessible ? "figure.roll.runningpace" : "figure.walk"
             case .straight:
                 return "arrow.up"
             case .slightRight:
@@ -52,9 +58,9 @@ public struct NavigationInstruction: Equatable, Identifiable {
             case .arrive:
                 return "checkmark.circle"
             case .cross:
-                return "figure.walk"
+                return isWheelchairAccessible ? "figure.roll.runningpace" : "figure.walk"
             case .tunnel:
-                return "figure.walk"
+                return isWheelchairAccessible ? "figure.roll.runningpace" : "figure.walk"
             case .bridge:
                 return "road.lanes"
             case .stairs:
