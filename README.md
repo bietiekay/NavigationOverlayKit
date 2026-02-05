@@ -91,6 +91,35 @@ let instruction = NavigationInstruction(
 viewModel.update(with: instruction)
 ```
 
+### 5. Reacting to instruction symbol changes (haptics/sound)
+
+`NavigationOverlayViewModel` publishes the current `symbol` so apps can subscribe and trigger haptics/audio cues whenever a new instruction is decoded:
+
+```swift
+@StateObject private var viewModel = NavigationOverlayViewModel()
+@State private var cancellables = Set<AnyCancellable>()
+
+func bindHaptics() {
+    viewModel.$symbol
+        .compactMap { $0 }
+        .sink { symbol in
+            let generator: UIImpactFeedbackGenerator
+            switch symbol {
+            case .uTurn, .arrive:
+                generator = UIImpactFeedbackGenerator(style: .heavy)
+            case .left, .right, .sharpLeft, .sharpRight:
+                generator = UIImpactFeedbackGenerator(style: .medium)
+            case .slightLeft, .slightRight:
+                generator = UIImpactFeedbackGenerator(style: .light)
+            case .start, .straight, .cross, .tunnel, .bridge, .stairs, .escalator:
+                generator = UIImpactFeedbackGenerator(style: .soft)
+            }
+            generator.impactOccurred()
+        }
+        .store(in: &cancellables)
+}
+```
+
 ## Integration guidance (Xcode + SwiftUI)
 
 - Prefer `@StateObject` for `NavigationOverlayViewModel` when the overlay is owned by a view, so the model persists across view reloads.

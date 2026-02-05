@@ -10,6 +10,9 @@ import MapKit
 public final class NavigationOverlayViewModel: ObservableObject {
     /// The current navigation instruction to display in the overlay
     @Published public private(set) var instruction: NavigationInstruction?
+
+    /// The current instruction symbol, useful for reacting to specific maneuvers
+    @Published public private(set) var symbol: NavigationInstruction.Symbol?
     
     /// The remaining distance to the destination (may differ from instruction distance)
     @Published public private(set) var remainingDistance: Measurement<UnitLength>?
@@ -70,6 +73,7 @@ public final class NavigationOverlayViewModel: ObservableObject {
     /// - Parameter instruction: The instruction to display
     public func update(with instruction: NavigationInstruction) {
         self.instruction = instruction
+        self.symbol = instruction.symbol
         self.remainingDistance = nil
     }
 
@@ -97,6 +101,7 @@ public final class NavigationOverlayViewModel: ObservableObject {
         guard route.steps.indices.contains(stepIndex) else { return }
         currentStepIndex = stepIndex
         instruction = NavigationInstruction.from(route: route, currentStepIndex: stepIndex, unit: unit)
+        symbol = instruction?.symbol
         remainingDistance = calculateRemainingDistance(from: stepIndex, route: route)
     }
 

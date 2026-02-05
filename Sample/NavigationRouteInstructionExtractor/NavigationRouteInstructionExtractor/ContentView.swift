@@ -1,6 +1,8 @@
 import SwiftUI
 import Combine
 import UniformTypeIdentifiers
+import NavigationOverlayKit
+import UIKit
 
 @MainActor
 final class ViewModel: ObservableObject {
@@ -154,10 +156,13 @@ final class ViewModel: ObservableObject {
 
 struct ContentView: View {
     @StateObject private var viewModel = ViewModel()
+    @StateObject private var overlayViewModel = NavigationOverlayViewModel()
+    @State private var demoIndex = 0
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
+                overlayDemoSection
                 controlSection
                 progressSection
                 statusSection
@@ -172,7 +177,99 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear {
+                setDemoInstruction()
+            }
+            .onReceive(overlayViewModel.$symbol.compactMap { $0 }) { symbol in
+                triggerHaptic(for: symbol)
+            }
         }
+    }
+
+    private var overlayDemoSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("NavigationOverlayKit Demo")
+                .font(.headline)
+
+            NavigationOverlayView(viewModel: overlayViewModel, alignment: .top)
+                .frame(maxWidth: .infinity, minHeight: 96)
+                .background(Color(.secondarySystemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+
+            Button(action: advanceDemoInstruction) {
+                Label("Next Instruction (Haptic)", systemImage: "waveform.path")
+            }
+            .buttonStyle(.bordered)
+        }
+    }
+
+    private func advanceDemoInstruction() {
+        demoIndex = (demoIndex + 1) % demoSymbols.count
+        setDemoInstruction()
+    }
+
+    private func setDemoInstruction() {
+        let symbol = demoSymbols[demoIndex]
+        let instruction = NavigationInstruction(
+            text: demoInstructionText(for: symbol),
+            distance: Measurement(value: 120, unit: UnitLength.meters),
+            symbol: symbol
+        )
+        overlayViewModel.update(with: instruction)
+    }
+
+    private var demoSymbols: [NavigationInstruction.Symbol] {
+        [.start, .straight, .slightRight, .right, .sharpRight, .slightLeft, .left, .sharpLeft, .uTurn, .arrive]
+    }
+
+    private func demoInstructionText(for symbol: NavigationInstruction.Symbol) -> String {
+        switch symbol {
+        case .start:
+            return "Start route"
+        case .straight:
+            return "Continue straight"
+        case .slightRight:
+            return "Slight right"
+        case .right:
+            return "Turn right"
+        case .sharpRight:
+            return "Sharp right"
+        case .slightLeft:
+            return "Slight left"
+        case .left:
+            return "Turn left"
+        case .sharpLeft:
+            return "Sharp left"
+        case .uTurn:
+            return "Make a U-turn"
+        case .arrive:
+            return "Arrive at destination"
+        case .cross:
+            return "Cross the street"
+        case .tunnel:
+            return "Enter tunnel"
+        case .bridge:
+            return "Cross bridge"
+        case .stairs:
+            return "Use stairs"
+        case .escalator:
+            return "Take escalator"
+        }
+    }
+
+    private func triggerHaptic(for symbol: NavigationInstruction.Symbol) {
+        let generator: UIImpactFeedbackGenerator
+        switch symbol {
+        case .uTurn, .arrive:
+            generator = UIImpactFeedbackGenerator(style: .heavy)
+        case .left, .right, .sharpLeft, .sharpRight:
+            generator = UIImpactFeedbackGenerator(style: .medium)
+        case .slightLeft, .slightRight:
+            generator = UIImpactFeedbackGenerator(style: .light)
+        case .start, .straight, .cross, .tunnel, .bridge, .stairs, .escalator:
+            generator = UIImpactFeedbackGenerator(style: .soft)
+        }
+        generator.impactOccurred()
     }
 
     private var controlSection: some View {
