@@ -170,4 +170,4 @@ If you need guaranteed correctness across many languages, consider using a routi
 
 ## License
 
-NavigationOverlayKit is provided without a specific license. Add your preferred license here.
+NavigationOverlayKit is provided with BSD 2-Clause "Simplified" License. See LICENSE file.
