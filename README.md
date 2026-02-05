@@ -91,6 +91,33 @@ let instruction = NavigationInstruction(
 viewModel.update(with: instruction)
 ```
 
+## Integration guidance (Xcode + SwiftUI)
+
+- Prefer `@StateObject` for `NavigationOverlayViewModel` when the overlay is owned by a view, so the model persists across view reloads.
+- If you need to share the overlay across multiple views, inject the view model via `@EnvironmentObject` or a custom dependency container.
+- Use `updateRemainingDistance(to:)` for frequent distance refreshes without changing the current instruction, and `update(step:)` when you advance between route steps.
+- In UIKit-backed projects, host the overlay via `UIHostingController` and keep the view model in your coordinator or view controller.
+
+## Versioning
+
+NavigationOverlayKit follows Semantic Versioning (`MAJOR.MINOR.PATCH`).
+
+- `MAJOR` for breaking API changes.
+- `MINOR` for backwards-compatible feature additions.
+- `PATCH` for backwards-compatible bug fixes.
+
+The current library version is exposed via `NavigationOverlayKitVersion.current`.
+
+> Note: Swift Package Manager does not support declaring a version inside `Package.swift`.
+> Versions are published via Git tags, so keep tags in sync with `NavigationOverlayKitVersion.current`.
+
+### How Xcode determines updates
+
+Xcode relies on Swift Package Manager to resolve dependency versions based on your package requirement
+(exact, branch, or version range). When you choose **File → Packages → Update to Latest Package Versions**
+or trigger a dependency resolve, SwiftPM fetches the latest matching Git tags for each package, updates
+`Package.resolved`, and Xcode uses that lockfile to decide whether a newer compatible version is available.
+
 ## Example
 
 An end-to-end example showing how to use NavigationOverlayKit within a simple SwiftUI view:
